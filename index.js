@@ -127,6 +127,7 @@ module.exports = class captcha{
 					}
 				}
 			}
+			pixelData = this.addNoiseToPixelData(pixelData, width*phrase.length + bufferLength, height);
 			resImgData = {imgData: pixelData, width: width*phrase.length + bufferLength, height: height};
 			if(typeof callback === "function"){
 				callback(null, resImgData);
@@ -171,6 +172,40 @@ module.exports = class captcha{
 				callback(err);
 			}
 		}
+	}
+
+	/**
+	 * private function
+	 *
+	 * @param required {object} pixelData
+	 * @param required {Number} width
+	 * @param required {Number} height
+	 * @return {object} pixelData
+	 */
+	addNoiseToPixelData(pixelData, width, height){
+		let modifiedPixelData = pixelData;
+		let indexToModify = 0;
+		let noOfPixelsModified = 0;
+		let maxNoise = width*height/2;
+
+		while(noOfPixelsModified < maxNoise){
+			indexToModify = Math.floor((Math.random()*width*height*16)/4);
+			if(!modifiedPixelData[indexToModify]){
+				modifiedPixelData[indexToModify] = 0;
+			}
+			if(!modifiedPixelData[indexToModify + 1]){
+				modifiedPixelData[indexToModify + 1] = 0;
+			}
+			if(!modifiedPixelData[indexToModify + 2]){
+				modifiedPixelData[indexToModify + 2] = 0;
+			}
+			if(!modifiedPixelData[indexToModify + 3]){
+				modifiedPixelData[indexToModify + 3] = 255;
+			}
+			noOfPixelsModified++;
+		}
+
+		return modifiedPixelData;
 	}
 
 }

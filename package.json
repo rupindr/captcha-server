@@ -1,6 +1,6 @@
 {
   "name": "captcha-server",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "description": "It provides easy access to Completely Automated Public Turing test to tell Computers and Humans Apart (CAPTCHA)",
   "main": "index.js",
   "scripts": {
