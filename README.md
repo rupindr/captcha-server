@@ -5,18 +5,18 @@ A simple Node module that provides Completely Automated Public Turing test to te
 ## Installation
 	npm install captcha-server --save
 ## Usage
-Require captcha-server module.
+1.Require captcha-server module.
 	
 
     var captchaServer = require('captcha-server');
 	
-Create new captcha object. You can provide one or both of the optional parameters.( Number of characters in the captcha, Possible characters in the phrase. )  Following are few examples:  
+2.Create new captcha object. You can provide one or both of the optional parameters.( Number of characters in the captcha, Possible characters in the phrase. )  Following are few examples:  
 
     var captcha = new captchaServer();
     var captcha = new captchaServer(5);
     var captcha = new captchaServer(5, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
     var captcha = new captchaServer(5, "012345ABCDEF");
-Sending image data to client.  
+3.Sending image data to client.  
 	Async (recommended):
 	
 
@@ -37,7 +37,7 @@ Sync:
     var imageData = captcha.getImageData();
     // send imageData to client
 
- Testing user response against captcha:  
+ 4.Testing user response against captcha:  
  Async (recommended):
  
 
@@ -55,7 +55,7 @@ Sync:
 
     var isCaptchaTestPassed = captcha.test(userResponse);
     // do something with isCaptchaTestPassed
-   Reloading captcha:
+   5.Reloading captcha:
    
 
     captcha.reload(); // this will assign new phrase to captcha
