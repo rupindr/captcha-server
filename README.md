@@ -41,7 +41,7 @@ Sync:
  Async (recommended):
  
 
-    cap.test(userResponse, (err, resCaptcha) => {
+    captcha.test(userResponse, (err, resCaptcha) => {
    		if(err || !resCaptcha){
 	   		// send negative response to client.
    			res.json({ status: "failed" });
