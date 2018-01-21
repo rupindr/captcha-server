@@ -1,6 +1,6 @@
 captcha-server
 ===========
-A simple Node module that provides Completely Automated Public Turing test to tell Computers and Humans Apart (CAPTCHA)
+It provides easy access to *Completely Automated Public Turing test to tell Computers and Humans Apart (CAPTCHA)*
 
 ## Installation
 	npm install captcha-server --save
