@@ -57,10 +57,9 @@ module.exports = class captcha{
 	reload(){
 		try{
 			let phrase = "";
-			let char = ""
 			let possibleChars = this._possibleChars;
 			for(let i = 0; i < this._noOfChars; i++){
-				char = possibleChars.charAt(Math.floor(Math.random() * possibleChars.length));
+				let char = possibleChars.charAt(Math.floor(Math.random() * possibleChars.length));
 				// check if character is allowed
 				if(this._allowed.indexOf(char) !== -1){
 					phrase += char;
@@ -93,31 +92,23 @@ module.exports = class captcha{
 			let height = this._height;
 			let width = this._width;
 			let pixelData = {};
-			let imgPixelIndex = 0;
 			let overlapping = [];
 			let bufferLength = 20;
 			let degreeOfOverlapping = 20;
-			let charIndex = 0;
-			let pixelsInPrevRows = 0;
-			let bufferPixel = 0;
-			let row = 0;
-			let column = 0;
-			let charPixelIndex = 0;
-			let pixelsInPrevChars = 0;
 			let resImgData = {};
 
 			// define overlapping for each character
-			for (charIndex = phrase.length - 1; charIndex >= 0; charIndex--) {
+			for (let charIndex = phrase.length - 1; charIndex >= 0; charIndex--) {
 				overlapping.push(Math.floor(Math.random() * degreeOfOverlapping));
 			}
 
-			for(row = 0; row < height; row++){
-				pixelsInPrevRows = row*(phrase.length*width*4 + bufferLength*4);
-				for(charIndex = 0; charIndex < phrase.length; charIndex++){
-					pixelsInPrevChars = charIndex*width*4;
-					for(column = 0; column < width*4; column++){
-						charPixelIndex = row*width*4 + column;
-						imgPixelIndex = pixelsInPrevRows + pixelsInPrevChars + column + overlapping[charIndex]*4;
+			for(let row = 0; row < height; row++){
+				let pixelsInPrevRows = row*(phrase.length*width*4 + bufferLength*4);
+				for(let charIndex = 0; charIndex < phrase.length; charIndex++){
+					let pixelsInPrevChars = charIndex*width*4;
+					for(let column = 0; column < width*4; column++){
+						let charPixelIndex = row*width*4 + column;
+						let imgPixelIndex = pixelsInPrevRows + pixelsInPrevChars + column + overlapping[charIndex]*4;
 						if(!charPixelData[phrase[charIndex]]){
 							throw phrase[charIndex] + " is not allowed in phrase";
 						}
@@ -154,7 +145,6 @@ module.exports = class captcha{
 		try{
 			if(!answer) throw "No answer provided!";
 			if(typeof answer !== "string") throw "Answer is not a string!";
-			// remove spaces from answer
 			answer = answer.replace(/\s+/g, '');
 			let res = false;
 			if(answer === this._phrase){
@@ -184,23 +174,22 @@ module.exports = class captcha{
 	 */
 	addNoiseToPixelData(pixelData, width, height){
 		let modifiedPixelData = pixelData;
-		let indexToModify = 0;
 		let noOfPixelsModified = 0;
 		let maxNoise = width*height/2;
 
 		while(noOfPixelsModified < maxNoise){
-			indexToModify = Math.floor((Math.random()*width*height*16)/4);
-			if(!modifiedPixelData[indexToModify]){
-				modifiedPixelData[indexToModify] = 0;
-			}
-			if(!modifiedPixelData[indexToModify + 1]){
-				modifiedPixelData[indexToModify + 1] = 0;
-			}
-			if(!modifiedPixelData[indexToModify + 2]){
-				modifiedPixelData[indexToModify + 2] = 0;
-			}
-			if(!modifiedPixelData[indexToModify + 3]){
-				modifiedPixelData[indexToModify + 3] = 255;
+			let indexToModify = Math.floor(Math.random()*width*height*4);
+			for(let i = 0; i < 4; i++){
+				if((i + 1)%4 === 0){
+					if(!modifiedPixelData[indexToModify + i]){
+						modifiedPixelData[indexToModify + i] = 255;
+					}
+				}
+				else{
+					if(!modifiedPixelData[indexToModify + i]){
+						modifiedPixelData[indexToModify + i] = 0;
+					}
+				}
 			}
 			noOfPixelsModified++;
 		}
