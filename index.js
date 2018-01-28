@@ -35,10 +35,15 @@ module.exports = class captcha{
 			this._phrase = "";
 			this._height = 30;
 			this._width = 30;
+			this._colorR = 0;
+			this._colorG = 0;
+			this._colorB = 0;
 			this._allowed = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 			this._noOfChars = noOfChars ? parseInt(noOfChars) : 5;
 			this._possibleChars = possibleChars ? possibleChars : this._allowed;
 			this.reload = this.reload.bind(this);
+			this.addLineToPixelData = this.addLineToPixelData.bind(this);
+			this.addNoiseToPixelData = this.addNoiseToPixelData.bind(this);
 
 			if(this._noOfChars > 50){
 				this._noOfChars = 50;
@@ -118,8 +123,11 @@ module.exports = class captcha{
 					}
 				}
 			}
-			pixelData = this.addNoiseToPixelData(pixelData, width*phrase.length + bufferLength, height);
-			resImgData = {imgData: pixelData, width: width*phrase.length + bufferLength, height: height};
+			width = width*phrase.length + bufferLength;
+			pixelData = this.addNoiseToPixelData(pixelData, width, height);
+			pixelData = this.addLineToPixelData(pixelData, width, height);
+			pixelData = this.addLineToPixelData(pixelData, width, height); // add a second line
+			resImgData = {imgData: pixelData, width: width, height: height};
 			if(typeof callback === "function"){
 				callback(null, resImgData);
 			}
@@ -175,23 +183,49 @@ module.exports = class captcha{
 	addNoiseToPixelData(pixelData, width, height){
 		let modifiedPixelData = pixelData;
 		let noOfPixelsModified = 0;
-		let maxNoise = width*height/2;
+		let maxNoise = width*height/5;
 
 		while(noOfPixelsModified < maxNoise){
-			let indexToModify = Math.floor(Math.random()*width*height*4);
-			for(let i = 0; i < 4; i++){
-				if((i + 1)%4 === 0){
-					if(!modifiedPixelData[indexToModify + i]){
-						modifiedPixelData[indexToModify + i] = 255;
-					}
-				}
-				else{
-					if(!modifiedPixelData[indexToModify + i]){
-						modifiedPixelData[indexToModify + i] = 0;
-					}
-				}
-			}
+			let indexToModify = Math.floor(Math.random()*width*height)*4;
+			modifiedPixelData[indexToModify] = this._colorR;
+			modifiedPixelData[indexToModify + 1] = this._colorG;
+			modifiedPixelData[indexToModify + 2] = this._colorB;
+			modifiedPixelData[indexToModify + 3] = 255;
 			noOfPixelsModified++;
+		}
+
+		return modifiedPixelData;
+	}
+
+	/**
+	 * private function
+	 *
+	 * @param required {object} pixelData
+	 * @param required {Number} width
+	 * @param required {Number} height
+	 * @return {object} pixelData
+	 */
+	addLineToPixelData(pixelData, width, height){
+		let modifiedPixelData = pixelData;
+		let currRow = Math.floor(Math.random()*height);
+		let currColumn = 0;
+		let thickness = 2;
+
+		while(currColumn < width*4){
+			let upOrDownFactor = Math.random();
+			if(upOrDownFactor < 0.5 && currRow < height -1){
+				currRow += 1;
+			}
+			else if(currRow > 0){
+				currRow -= 1;
+			}
+			for(let i = 0; i < thickness; i++){
+				modifiedPixelData[width*4*(currRow + i) + currColumn] = this._colorR;
+				modifiedPixelData[width*4*(currRow + i) + currColumn + 1] = this._colorG;
+				modifiedPixelData[width*4*(currRow + i) + currColumn + 2] = this._colorB;
+				modifiedPixelData[width*4*(currRow + i) + currColumn + 3] = 255;
+			}
+			currColumn += 4;
 		}
 
 		return modifiedPixelData;

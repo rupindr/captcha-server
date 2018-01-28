@@ -10,7 +10,7 @@ It provides easy access to *Completely Automated Public Turing test to tell Comp
 
     var captchaServer = require('captcha-server');
   
-**2.Create new captcha object. You can provide one or both of the optional parameters.( Number of characters in the captcha, Possible characters in the phrase. )  For Example:**  
+**2.Create new captcha object. It takes two optional parameters i.e. Number of characters in the captcha, Possible characters in the phrase. For Example:**  
 
     var captcha = new captchaServer();
     var captcha1 = new captchaServer(5);
@@ -60,7 +60,7 @@ Sync:
 
     captcha.reload(); // this will assign new phrase to captcha
 
-**6.See [Captcha Example](https://github.com/rupindr/captcha-example) to see how to integrate with front-end.**
+**6.Check out [Captcha Example](https://github.com/rupindr/captcha-example) to see how to integrate with front-end.**
 
 ## Contributing
 
@@ -69,4 +69,5 @@ Add unit tests for any new or changed functionality. Lint and test your code.
 
 ## Release History
 
-* 0.1.\* Initial release
+* 0.1.\* Initial release  
+* 1.0.\* Version One Stable
