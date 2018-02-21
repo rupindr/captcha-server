@@ -24,5 +24,8 @@
   "homepage": "https://github.com/rupindr/captcha-server#readme",
   "devDependencies": {
     "jest": "^22.1.4"
+  },
+  "dependencies": {
+    "express": "^4.16.2"
   }
 }
