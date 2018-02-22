@@ -73,11 +73,12 @@ Add following tag to your html
 2. **Create a new captcha object.**  
  It takes two parameters:
    * DOM element that is container for captcha
-   * API address where captcha-server is running.
+   * API address where captcha-server is running.  
+   
+   when object is created, div #captcha-container will be popoulated with a captcha.
   ```
      var captcha = new CaptchaClient(document.getElementById('captcha-container'), 'https://localhost:3001');
-  ```
-  when object is created, div #captcha-container will be popoulated with a captcha.  
+  ```  
 
 3. **Adding event listeners.**  
 captcha-client provides following events:
