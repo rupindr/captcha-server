@@ -16,7 +16,7 @@ if you want to use [v1.0.0](/docs/Readme1.0.0.md) then run
 `npm install captcha-server@1.0.0 --save`  
 2. **create new captcha.**
     ``` 
-    var captchaServer = new require('captcha-server');
+    var captchaServer = require('captcha-server');
     var captcha = new captchaServer(5, 'ABCDEFGHIJK012345');
     ```
     captcha constructor takes two optional parameters:
