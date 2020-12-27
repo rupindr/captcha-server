@@ -1,6 +1,6 @@
 {
   "name": "captcha-server",
-  "version": "2.0.2",
+  "version": "2.0.4",
   "description": "It provides easy access to Completely Automated Public Turing test to tell Computers and Humans Apart (CAPTCHA)",
   "main": "index.js",
   "scripts": {
@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/rupindr/captcha-server#readme",
   "devDependencies": {
-    "jest": "^22.1.4"
+    "jest": "^26.6.3"
   },
   "dependencies": {
     "express": "^4.16.2"

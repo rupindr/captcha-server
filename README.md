@@ -2,7 +2,7 @@ captcha-server2.0
 ==============
 Ready to use CAPTCHAs for your website.  
 
-![captcha image](https://rupindr.github.io/rupindr/images/captcha1.png "captcha generated  by captcha-server2.0")
+![captcha image](https://raw.githubusercontent.com/rupindr/captcha-server/master/docs/images/screenshot.png "captcha generated  by captcha-server2.0")
 ## Features  
 * Customizable phrase length and possible characters  
 * Captcha will be generated on your server. Therefore, no tracking by third parties.  
