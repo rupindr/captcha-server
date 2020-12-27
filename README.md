@@ -1,5 +1,5 @@
-captcha-server2.0  
-==============
+![CaptchaServer Logo](https://raw.githubusercontent.com/rupindr/captcha-server/master/docs/images/CaptchaServer%20logo%20transparent.png)  
+# captcha-server
 Ready to use CAPTCHAs for your website.  
 
 ![captcha image](https://raw.githubusercontent.com/rupindr/captcha-server/master/docs/images/screenshot.png "captcha generated  by captcha-server2.0")
